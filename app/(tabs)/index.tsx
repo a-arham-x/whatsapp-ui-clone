@@ -1,75 +1,113 @@
-import { Image } from 'expo-image';
-import { Platform, StyleSheet } from 'react-native';
-
-import { HelloWave } from '@/components/HelloWave';
-import ParallaxScrollView from '@/components/ParallaxScrollView';
-import { ThemedText } from '@/components/ThemedText';
-import { ThemedView } from '@/components/ThemedView';
+import Chat from "@/components/Chat";
+import ChatHeader from '@/components/ChatHeader';
+import { Text } from '@react-navigation/elements';
+import React, { useState } from "react";
+import { Image, ScrollView, StyleSheet, TextInput, View } from 'react-native';
 
 export default function HomeScreen() {
+  const [text, setText] = useState('');
+
+  const chatList = [
+    {imgSrc: require("@/assets/images/profile-pic.png"), username: "Jaudat", message: "How much did u sleep?", time: "9:35 am"},
+    {imgSrc: require("@/assets/images/profile-pic-1.png"), username: "Ismaeel", message: "Ooooooo", time: "9:21 am"},
+    {imgSrc: require("@/assets/images/profile-pic-2.png"), username: "Ramish", message: "Hn chl set hai", time: "8:46 am"},
+    {imgSrc: require("@/assets/images/profile-pic-3.png"), username: "Ahmad Zafar", message: "When is u come back?", time: "7:41 am"},
+    {imgSrc: require("@/assets/images/profile-pic-4.png"), username: "Hassaan", message: "Reacted 😂 to your message", time: "12:22 am"},
+    {imgSrc: require("@/assets/images/profile-pic-5.png"), username: "Fahd", message: 'You reacted 😂 to "Image"', time: "Yesterday"},
+    {imgSrc: require("@/assets/images/profile-pic-6.png"), username: "Yuvraj", message: "Pull gya yuvi", time: "Yesterday"},
+  ]
+
   return (
-    <ParallaxScrollView
-      headerBackgroundColor={{ light: '#A1CEDC', dark: '#1D3D47' }}
-      headerImage={
+    <View style={styles.container}>
+      {/* 1. Header (fixed height) */}
+      <View style={styles.headerContainer}>
+        <ChatHeader/>
+        <View style={styles.inputContainer}>
+          <View style={styles.inputWrapper}>
+            <Image
+              source={require('@/assets/images/search.png')}
+              style={styles.icon}
+              resizeMode="contain"
+            />
+            <TextInput
+              style={styles.input}
+              placeholder="Ask Meta AI or Search"
+              placeholderTextColor="#aaa"
+              value={text}
+              onChangeText={setText}
+            />
+          </View>
+        </View>
+      </View>
+
+      {/* 2. Archived row (natural height) */}
+      <View style={styles.archivedContainer}>
         <Image
-          source={require('@/assets/images/partial-react-logo.png')}
-          style={styles.reactLogo}
+          source={require('@/assets/images/archived.png')}
+          style={{...styles.icon, width: 70, height: 30}}
+          resizeMode="contain"
         />
-      }>
-      <ThemedView style={styles.titleContainer}>
-        <ThemedText type="title">Welcome!</ThemedText>
-        <HelloWave />
-      </ThemedView>
-      <ThemedView style={styles.stepContainer}>
-        <ThemedText type="subtitle">Step 1: Try it</ThemedText>
-        <ThemedText>
-          Edit <ThemedText type="defaultSemiBold">app/(tabs)/index.tsx</ThemedText> to see changes.
-          Press{' '}
-          <ThemedText type="defaultSemiBold">
-            {Platform.select({
-              ios: 'cmd + d',
-              android: 'cmd + m',
-              web: 'F12',
-            })}
-          </ThemedText>{' '}
-          to open developer tools.
-        </ThemedText>
-      </ThemedView>
-      <ThemedView style={styles.stepContainer}>
-        <ThemedText type="subtitle">Step 2: Explore</ThemedText>
-        <ThemedText>
-          {`Tap the Explore tab to learn more about what's included in this starter app.`}
-        </ThemedText>
-      </ThemedView>
-      <ThemedView style={styles.stepContainer}>
-        <ThemedText type="subtitle">Step 3: Get a fresh start</ThemedText>
-        <ThemedText>
-          {`When you're ready, run `}
-          <ThemedText type="defaultSemiBold">npm run reset-project</ThemedText> to get a fresh{' '}
-          <ThemedText type="defaultSemiBold">app</ThemedText> directory. This will move the current{' '}
-          <ThemedText type="defaultSemiBold">app</ThemedText> to{' '}
-          <ThemedText type="defaultSemiBold">app-example</ThemedText>.
-        </ThemedText>
-      </ThemedView>
-    </ParallaxScrollView>
+        <Text style={styles.archivedText}>Archived</Text>
+        <Text style={styles.archivedNumber}>22</Text>
+      </View>
+
+      {/* 3. Chats list fills remaining space */}
+      <ScrollView>
+        {chatList.map((chat, i)=>
+            <Chat key={i} avatarUrl={chat.imgSrc} username={chat.username} message={chat.message} time={chat.time}/>
+        )}
+      </ScrollView>
+    </View>
   );
 }
 
 const styles = StyleSheet.create({
-  titleContainer: {
+  container: { flex: 1 },
+
+  headerContainer: {
+    height: "21.3%",  // stays fixed
+    paddingTop: 10,
+    paddingHorizontal: 10,
+  },
+
+  inputContainer: { marginTop: 2 },
+  inputWrapper: {
     flexDirection: 'row',
     alignItems: 'center',
-    gap: 8,
+    backgroundColor: '#23282c',
+    borderRadius: 50,
+    paddingHorizontal: 15,
+    height: 50,
+    marginBottom: 10,
+    // marginTop: -5,
   },
-  stepContainer: {
-    gap: 8,
-    marginBottom: 8,
+  icon: {
+    width: 20, height: 20,
+    marginRight: 10,
+    tintColor: '#aaa',
   },
-  reactLogo: {
-    height: 178,
-    width: 290,
-    bottom: 0,
-    left: 0,
-    position: 'absolute',
+  input: {
+    flex: 1,
+    color: '#fff',
   },
+
+  archivedContainer: {
+    flexDirection: "row",
+    alignItems: 'center',
+    paddingLeft: 2,
+    paddingRight: 10,
+    paddingVertical: 10,
+  },
+  archivedText: {
+    fontSize: 15,
+    marginLeft: -10,
+    color: "#aaa",
+  },
+  archivedNumber: {
+    fontSize: 12,
+    marginLeft: 'auto',  // pushes it to the right
+    marginRight: 5,
+    color: "#aaa",
+  },
+
 });
