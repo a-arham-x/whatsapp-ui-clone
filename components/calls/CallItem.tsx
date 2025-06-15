@@ -2,14 +2,15 @@
 import { Image, ImageSourcePropType, StyleSheet, Text, View } from "react-native";
 
 
-interface ChatProps {
+interface CallProps {
   username: string;
-  message: string;
-  avatarUrl: ImageSourcePropType;   // the “?” makes it optional
+  avatarUrl: ImageSourcePropType;  
   time: string;
+  color: string;
+  arrow: ImageSourcePropType;  
 }
 
-const Chat: React.FC<ChatProps> = ({ avatarUrl, username, message, time }) => {
+const CallItem: React.FC<CallProps> = ({ avatarUrl, username, time, color, arrow }) => {
     return (
         <View style={styles.container}>
             <Image
@@ -17,11 +18,16 @@ const Chat: React.FC<ChatProps> = ({ avatarUrl, username, message, time }) => {
                 style={styles.imgStyle}
             />
             <View>
-                <Text style={styles.name}>{username}</Text>
-                <Text style={styles.message}>{message}</Text>
+                <Text style={{...styles.name, color}}>{username}</Text>
+                <View style={{flexDirection: "row", alignItems: "center"}}>
+                     <Image
+                        source={arrow}
+                        style={{width: 12, height: 12, resizeMode: "contain"}}
+                    />
+                    <Text style={styles.time}>{time}</Text>
+                </View>
             </View>
-            <Text style={styles.time}>{time}</Text>
-            {/* other chat bubble content */}
+            <Image source={require('../../assets/images/calls-tab.jpg')} style={styles.callIcon}/>
         </View>
     );
 }
@@ -43,22 +49,19 @@ const styles = StyleSheet.create({
         fontFamily: "OpenSans",
         color: "#fff",
         fontSize: 17,
-        fontWeight: 700
-    },
-    message: {
-        fontFamily: "OpenSans",
-        color: "#aaa",
-        fontSize: 14,
     },
     time: {
         fontFamily: "OpenSans",
         color: "#aaa",
-        fontSize: 12,
+        fontSize: 14,
+        marginLeft: 10
+    },
+    callIcon: {
         marginLeft: "auto",
         marginRight: 10,
-        marginBottom: 'auto',
-        marginTop: 8,
+        width: 20,
+        height: 20
     }
 });
 
-export default Chat;
+export default CallItem;

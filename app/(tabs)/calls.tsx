@@ -1,10 +1,17 @@
+import CallsList from '@/components/calls/CallsList';
+import Favourites from '@/components/calls/Favourites';
+import Header from '@/components/calls/Header';
 import React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import { ScrollView, StyleSheet, View } from 'react-native';
 
-export default function CallsScreen() {
+export default function Calls() {
   return (
     <View style={styles.container}>
-      <Text style={styles.text}>📞 Calls functionality under construction...</Text>
+      <Header />
+      <ScrollView style={styles.scroll}>
+        <Favourites />
+        <CallsList/>
+      </ScrollView>
     </View>
   );
 }
@@ -12,9 +19,12 @@ export default function CallsScreen() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#101010',
-    justifyContent: 'center',
-    alignItems: 'center',
+    marginTop: 30,
+    paddingBottom: 100,
+  },
+  scroll: {
+    flexGrow: 1,     
+    marginTop: 5,           
   },
   text: {
     color: '#fff',
