@@ -30,7 +30,6 @@ export default function UpdatesScreen() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#0b1014', // match your theme
     marginTop: 30,
   },
   scroll: {

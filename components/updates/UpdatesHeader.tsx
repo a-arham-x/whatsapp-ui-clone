@@ -46,7 +46,7 @@ const styles = StyleSheet.create({
     menuStyle: {
         width: 24,
         height: 20,
-        marginTop: 55,
+        marginTop: 55,  
     }
 })
 
