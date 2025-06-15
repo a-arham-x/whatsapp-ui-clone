@@ -1,13 +1,11 @@
-import { useState } from 'react';
 import { Image, StyleSheet, Text, View } from 'react-native';
 
 export default function ChatHeader() {
-    const [text, setText] = useState('');
   return <View style={styles.container}>
     <Text style={styles.text}>WhatsApp</Text>
     <View style={styles.subContainer}>
-         <Image source={require('../assets/images/camera.png')} style={{...styles.imgStyle, marginTop: 57}}/>
-         <Image source={require('../assets/images/menu.png')} style={styles.imgStyle}/>
+         <Image source={require('../../assets/images/camera.jpg')} style={{width: 22, height: 18, marginTop: 57}}/>
+         <Image source={require('../../assets/images/menu.png')} style={styles.imgStyle}/>
     </View>
   </View>;
 }
@@ -38,7 +36,7 @@ const styles = StyleSheet.create({
   subContainer: {
     flex: 1,
     flexDirection: "row",
-  marginLeft: 140, // Pushes this view to the right
+  marginLeft: 175, // Pushes this view to the right
   gap: 20,
 //   alignItems: "center", // Optional: vertically align camera + text
   },

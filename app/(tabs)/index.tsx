@@ -1,5 +1,5 @@
-import Chat from "@/components/Chat";
-import ChatHeader from '@/components/ChatHeader';
+import Chat from "@/components/chats/Chat";
+import ChatHeader from '@/components/chats/ChatHeader';
 import { Text } from '@react-navigation/elements';
 import React, { useState } from "react";
 import { Image, ScrollView, StyleSheet, TextInput, View } from 'react-native';

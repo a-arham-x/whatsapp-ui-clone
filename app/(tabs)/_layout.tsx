@@ -4,7 +4,6 @@ import { Image, StyleSheet } from 'react-native';
 
 import { HapticTab } from '@/components/HapticTab';
 import TabBarBackground from '@/components/ui/TabBarBackground';
-import { Colors } from '@/constants/Colors';
 import { useColorScheme } from '@/hooks/useColorScheme';
 
 const ICON_SIZE = 56;
@@ -19,7 +18,8 @@ export default function TabLayout() {
         headerShown: false,
         tabBarButton: HapticTab,
         tabBarBackground: TabBarBackground,
-        tabBarActiveTintColor: Colors[colorScheme ?? 'light'].tint,
+        tabBarActiveTintColor: "#fff",
+        tabBarInactiveTintColor: "#fff",
 
         // 1) Make the bar bigger...
         tabBarStyle: {
@@ -44,9 +44,23 @@ export default function TabLayout() {
           title: 'Chats',
           tabBarIcon: ({ color, focused }) => (
             <Image
-              source={ require('@/assets/images/chats-tab.jpg') }
+              source={
+                focused
+                  ? require('@/assets/images/chats-tab.jpg')
+                  : require('@/assets/images/chats-tab-inactive.jpg')
+              }
               style={
-                styles.icon
+                focused
+                  ? 
+                  {
+                    width: 56,
+                  height: 56,
+                  resizeMode: "contain"
+                  } : {
+                  width: 34,
+                  height: 34,
+                  resizeMode: "contain"
+                }
               }
             />
           ),
@@ -63,9 +77,16 @@ export default function TabLayout() {
           title: 'Updates',
           tabBarIcon: ({ color, focused }) => (
             <Image
-              source={ require('@/assets/images/updates-tab.jpg') }
+              source={ 
+                focused 
+                ? require('@/assets/images/updates-tab-active.jpg')
+                : require('@/assets/images/updates-tab.jpg') }
               style={
-                {
+                focused ? {
+                  width: 56,
+                  height: 56,
+                  resizeMode: "contain"
+                } : {
                   width: 30,
                   height: 30,
                   resizeMode: "contain"
@@ -86,9 +107,15 @@ export default function TabLayout() {
           title: 'Communities',
           tabBarIcon: ({ color, focused }) => (
             <Image
-              source={ require('@/assets/images/communities-tab.jpg') }
+              source={ 
+                focused ? require('@/assets/images/communities-tab-active.jpg')
+                : require('@/assets/images/communities-tab.jpg') }
               style={
-                {
+                focused ? {
+                  width: 56,
+                  height: 56,
+                  resizeMode: "contain"
+                } : {
                   width: 30,
                   height: 30,
                   resizeMode: "contain"
@@ -109,9 +136,15 @@ export default function TabLayout() {
           title: 'Calls',
           tabBarIcon: ({ color, focused }) => (
             <Image
-              source={ require('@/assets/images/calls-tab.jpg') }
+              source={ 
+                focused ? require('@/assets/images/calls-tab-active.jpg')
+                : require('@/assets/images/calls-tab.jpg') }
               style={
-                {
+                focused ? {
+                  width: 56,
+                  height: 56,
+                  resizeMode: "contain"
+                } : {
                   width: 20,
                   height: 20,
                   resizeMode: "contain"
